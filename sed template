@@ -1,0 +1,12 @@
+#!/bin/sh
+raw_port="6379"
+filename="redis-${1}.conf"
+pid="redis_${1}.pid"
+log="redis-${1}.log"
+rawpid="redis_6379.pid"
+rawlog="redis.log"
+
+cp redis.conf ${filename}
+sed -i s/"port ${raw_port}"/"port ${1}"/ ${filename}
+sed -i s/${rawpid}/${pid}/ ${filename}
+sed -i s/${rawlog}/${log}/ ${filename}
