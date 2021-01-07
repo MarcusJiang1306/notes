@@ -7,11 +7,17 @@ rawpid="redis_6379.pid"
 rawlog="redis.log"
 
 cp redis.conf ${filename}
+# 加个! 表示取反
+if test ! -d /var/lib/redis${1} ; then  
+mkdir /var/lib/redis${1}
+fi
 sed -i s/"port ${raw_port}"/"port ${1}"/ ${filename}
 sed -i s/${rawpid}/${pid}/ ${filename}
 sed -i s/${rawlog}/${log}/ ${filename}
+sed -i s#lib/redis#lib/redis${1}# ${filename}
 
-#一些坑 空格和斜杠没法作为变量 待研究
+#斜杠解决方法用#作为分隔符
+#一些坑 空格没法作为变量 待研究
 #sed命令替换字符包含斜杠\，引号的处理方法
 #在字符替换中，可能会遇见引号，“/”等的替换，这时应该注意，sed的命令原型是：
 
