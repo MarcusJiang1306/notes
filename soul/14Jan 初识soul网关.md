@@ -36,13 +36,13 @@ mvn clean package install
 ```
 如果遇到模块缺失, 单独install该模块再重新install就可以了.  
 一切准备就绪之后我们就可以尝试启动它了, 先启动soul-admin的SoulAdminBootstrap, 这是一个标准的springboot项目, 架构类似业务代码的MVC模式, 用来管理网关的行为和对网关的监控. 如果没有准备mysql数据库则需要开启h2的配置文件, 启动方法如下  
-![Image text](pic/SoulAdminBootstrap启动配置选项.png)
+![Image text](pic/14Jan/SoulAdminBootstrap启动配置选项.png)
 再启动SoulBootstrapApplication, 一般也没什么问题.  
 最后准备我们的真正的后台服务, 我们自己写一个springboot项目, 然后参考soul官方文档接入soul. 当然我们也可以启动soul自带的example, 我们以soul-example-http为例子. 主要注意的是, 后台服务在配置文件需要配置的是soul-admin的地址（本例子中admin是localhost:9095）, 而我们访问网关的时候则是需要通过网关的地址（soul-bootstrap则是localhost:9195）  
 我们先看看我们的admin是什么情况, 直接打开localhost:9095, 初始账号密码是admin,123456. 然后在插件列表的divide我们能看到后台服务注册到网关的情况.  
-![image](pic/admin界面.png)
+![image](pic/14Jan/admin界面.png)
 然后我们可以尝试通过网关发起一次调用  
-![image](pic/通过网关调用服务.png)
+![image](pic/14Jan/通过网关调用服务.png)
 可以看到正确返回了, 但我们对中间发生了什么一无所知, 同时在log看到了一句error, 究竟是怎么回事呢？我们明天继续
 ```text
 2021-01-15 01:50:26.350  INFO 9136 --- [-work-threads-1] o.d.soul.plugin.base.AbstractSoulPlugin  : divide selector success match , selector name :/http
