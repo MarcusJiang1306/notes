@@ -1,0 +1,13 @@
+### Hmily踩坑记录
+
+在做之前dubbo-hmily的tcc模式模拟外汇转账的时候，发现consumer不会confirm，开始以为是dubbo注解模式的问题，在debug的过程中发现不是这么回事。
+
+刚开始排查问题的时候毫无头绪，因为不知道他具体是怎么运转的，幸好hmily自带的demo还能跑，而且是成功的，而且tcc模式不管你做了什么业务，哪怕打个log也成，就把hmily的demo的业务全部注释掉了，仔细研究其内在逻辑。
+
+经过仔细比对，首先aop切面就没走到，然后在hmily-dubbo-demo找到了需要配hmilyTransactionAspect来让注解切面生效（这部分可以用hmily的starter自动配入），加上hmilyApplicationContextAware来启动hmily，在配好了之后又发现HmilyTransactionAspectInvoker初始化的时候FACTORY_MAP加载不到对应的HmilyTransactionHandlerFactory，根据tcc的key取出来是空的，在invoke的时候会NPE，因为没有Factory。经过研究tcc的加载机制，我发现是我没导入相关的包，加进去之后就OK了。。。
+
+虽然是很简单的改动，加个Bean的配置和加个依赖，但发现问题却用了很长时间。
+
+
+
+又发现新坑 隐式传参没传过去 拿不到HmilyTransactionContext，就一直没有参与者，cancel自然就无法cancel。。。还是依赖的坑 要配上hmily-dubbo，里面会有hmilyFilter把context装配好
