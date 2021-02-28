@@ -1,0 +1,5 @@
+## 碎片化记录些东西
+
+处理请求的是DefaultChannelHandlerContext是reactor.right.reactiveBridge 
+发送请求的是reactor.left.httpTrafficHandler 在HttpServerBind进行组装，是在同一个pipeline的 初步判断right是入站，left是出站
+应该是有个listener或者是future进到httpTrafficHandler的，
