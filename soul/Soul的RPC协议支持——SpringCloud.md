@@ -111,3 +111,4 @@ post带Json调用![img](../pic/Soul的RPC协议支持——SpringCloud/post调�
 ![image-20210321225631193](../pic/Soul的RPC协议支持——SpringCloud/image-20210321225631193.png)
 
 可以看到SpringCloud插件相对还是比较简单的，因为服务本体实质上还是个HTTP服务，所以可以和HTTP服务共用WebClientPlugin去调用实际的服务。在这里SpringCloud的实现实际上是取代了divide的功能，从自己的upstream cache里面取得实际服务实例换成了通过load balancer（在这里是ribbon）获得服务实例。
+
