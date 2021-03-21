@@ -10,7 +10,7 @@ SpringCloud不是单单一个框架，而是微服务治理的一整套解决方
 
 服务发现——Netflix Eureka
 
-客服端负载均衡——Netflix Ribbon 负责
+客服端负载均衡——Netflix Ribbon
 
 断路器——Netflix Hystrix
 
@@ -53,7 +53,7 @@ SpringCloud不是单单一个框架，而是微服务治理的一整套解决方
 </dependency>
 ```
 
-在依赖中我们能看到用来适配SpringCloud的 `soul-spring-boot-starter-plugin-springcloud`和`spring-cloud-commons ` ，负载均衡模块`Ribbon`和服务发现`Eureka`。然后在soul-bootstrap下的application-local把eureka配置注释去掉，将bootstrap注册到Eureka上面。
+在依赖中我们能看到用来适配SpringCloud的 `soul-spring-boot-starter-plugin-springcloud`和`spring-cloud-commons ` ，负载均衡模块`Ribbon`和服务发现`Eureka`。然后在`soul-bootstrap`下的`application-local.yml`把eureka配置注释去掉，然后启动`soul-bootstrap`， 这样网关就启动了，也注册到Eureka上面。
 
 ```
 eureka:
@@ -64,7 +64,15 @@ eureka:
     prefer-ip-address: true
 ```
 
-在启动完admin和bootstrap之后，在admin面板还要打开SpringCloud的插件，在这些都准备就绪之后就能启动`soul-examples-springcloud`了。在看见注册的log之后，我们的springcloud服务就被注册上来了
+访问`http://localhost:8761`我们就可以看见bootstrap被注册上来了。
+
+![image-20210321233147099](../pic/Soul的RPC协议支持——SpringCloud/image-20210321233147099.png)
+
+在启动完admin和bootstrap之后，在admin面板还要打开SpringCloud的插件。
+
+![img](../pic/Soul的RPC协议支持——SpringCloud/插件管理.png)
+
+在这些都准备就绪之后就能启动`soul-examples-springcloud`下的`SoulTestSpringCloudApplication`了。在看见注册的log之后，我们的SpringCloud服务就被注册上来了
 
 ```
 2021-01-20 23:43:54.058  INFO 19712 --- [pool-1-thread-1] o.d.s.client.common.utils.RegisterUtils  : springCloud client register success: {"appName":"springCloud-test","context":"/springcloud","path":"/springcloud/order/save","pathDesc":"","rpcType":"springCloud","ruleName":"/springcloud/order/save","enabled":true} 
@@ -76,8 +84,6 @@ eureka:
 
 然后在admin确认插件信息、元数据管理，选择器等数据被正确注册到soul上面
 
-![img](../pic/Soul的RPC协议支持——SpringCloud/插件管理.png)
-
 ![img](../pic/Soul的RPC协议支持——SpringCloud/元数据管理.png)
 
 ![img](../pic/Soul的RPC协议支持——SpringCloud/SpringCloud选择器&规则.png)
@@ -86,9 +92,13 @@ eureka:
 
 ![img](../pic/Soul的RPC协议支持——SpringCloud/规则配置界面.png)
 
+在Eureka管理界面也能看到我们的SpringCloud服务被注册到Eureka了
+
+![image-20210321233623509](../pic/Soul的RPC协议支持——SpringCloud/image-20210321233623509.png)
 
 
-尝试get调用![img](../pic/Soul的RPC协议支持——SpringCloud/调用SpringCloud.png)
+
+在上面的工作准备完成了之后就可以在浏览器尝试通过get调用SpringCloud的服务了![img](../pic/Soul的RPC协议支持——SpringCloud/调用SpringCloud.png)
 
 
 
