@@ -22,6 +22,10 @@ SpringCloud不是单单一个框架，而是微服务治理的一整套解决方
 
 
 
+
+
+
+
 ### Soul接入SpringCloud服务
 
 在启动我们的bootstrap之前，我们要先启动Eureka，可以是额外启动Eureka服务，也可以启动soul的`soul-examples-eureka`，这样我们就有了一个Eureka注册中心。
@@ -88,7 +92,9 @@ eureka:
 
 ![img](../pic/Soul的RPC协议支持——SpringCloud/SpringCloud选择器&规则.png)
 
-和别的几个协议稍微有所不同，SpringCloud插件的规则下面有代理路径和超时时间的配置
+
+
+和别的几个协议稍微有所不同，SpringCloud插件的规则可以设置超时时间，如果调用SpringCloud服务超过了设定的时间就会返回调用超时，暂时来说path没什么用，主要作用还是条件里面的path。
 
 ![img](../pic/Soul的RPC协议支持——SpringCloud/规则配置界面.png)
 
